@@ -9,8 +9,8 @@ source = fileinfo['source']
 destination = fileinfo['destination']
 filetypes = fileinfo['filetypes']
 
-imgarray = []
-totalimages = 0
+filelist = []
+totalfiles = 0
 
 masterlist = "_master_list.txt"
 fileregex = f"{destination}/([0-9]+){masterlist}"
@@ -20,17 +20,17 @@ for root, dirs, files in os.walk(destination):
         fullname = f"{root}/{name}"
         filesearch = re.search(fileregex, fullname, re.IGNORECASE) 
         if filesearch:
-            totalimages = int(filesearch.group(1))
+            totalfiles = int(filesearch.group(1))
 
 for root, dirs, files in os.walk(source):
     for name in files:
         if name.endswith(tuple(filetypes)):
-            totalimages += 1
-            imgarray.append(f"{root}/{name} ==> {totalimages}_{name}\n")
+            totalfiles += 1
+            filelist.append(f"{root}/{name} ==> {totalfiles}_{name}\n")
             os.rename(f"{root}/{name}", 
-                        f"{destination}/{totalimages}_{name}")
+                        f"{destination}/{totalfiles}_{name}")
 
-with open(f"{destination}/{totalimages}{masterlist}", 'w') as f:
-    for file in imgarray:
+with open(f"{destination}/{totalfiles}{masterlist}", 'w') as f:
+    for file in filelist:
         f.write("%s\n" % file)
 
