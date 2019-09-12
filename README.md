@@ -1,6 +1,8 @@
 # literate-waddle
-This program moves files from one location to another using json for source, destination, and filetypes
+This program moves files from one location to another, appends a number to the beginning of each file moved, and also writes a master list of all the files moved with the final number displayed in the master_list.txt filename.
+If the program fails for any reason, it checks for the master_list.txt file in the destination, and if it exists, grabs the last number from the filename and restarts numbering from there.
 
+Uses json for source, destination, and filetypes
 Uses python3.7
 
 ### Use
